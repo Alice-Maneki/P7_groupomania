@@ -19,14 +19,16 @@ router.put('/:id', auth, multer, articleCtlr.modifyArticle);
 /* supprimer un article existant */
 router.delete('/:id', auth, articleCtlr.deleteArticle);
 
-/* pouvoir trouver un seul objet dans la BDD par son id */
-router.get('/:id', auth, articleCtlr.getOneArticle);
-
 /* récupérer tous les articles dans la BDD */
 router.get('/', auth, articleCtlr.getAllArticle);
 
-/* gestion des likes/dislikes */
+/* gestion des likes */
 router.post('/:id/like', auth, articleCtlr.likeArticle);
+
+/* routes pour les commentaire : grâce à mongoDB ils sont indentés sur les articles */
+router.patch('/comment/:id',auth, articleCtlr.commentArticle);
+router.patch('/comment/:id', auth, articleCtlr.commentEdit);
+router.patch('/comment/:id', auth, articleCtlr.commentDelete);
 
 /* on exporte le router */
 module.exports = router;

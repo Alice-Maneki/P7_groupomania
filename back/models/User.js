@@ -9,9 +9,9 @@ const userSchema = mongoose.Schema({
     /* addresse mail doit être unique :  on ne peut pas s'inscrire plusieurs fois avec la même */
     name: { type: String, require: true},
     firstName: {type: String, require: true},
-    email: { type: String, require: true, unique: true },
+    email: { type: String, require: true, unique: true},
     password: { type: String, require: true },
-   
+    picture: { type: String, default: './images/random-user.jpg'}
 });
 
 /* appliquer le plugin mongoose-unique-validator au schéma */

@@ -13,7 +13,6 @@ const path = require('path');
 /* importer les routes */
 const articleRoutes = require('./routes/article');
 const userRoutes = require('./routes/user');
-const commentRoutes = require('./routes/comment');
 
 /* log des req et res */
 app.use(morgan('dev'));
@@ -42,7 +41,7 @@ app.use('/images', express.static(path.join(__dirname, 'images')));
 
 app.use('/api/article', articleRoutes);
 app.use('/api/auth', userRoutes);
-app.use('/api/comment', commentRoutes);
+
 
 /* on l'exporte pour pvr y accéder depuis les autres fichiers de notre projet */
 module.exports = app;
