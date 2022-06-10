@@ -2,20 +2,22 @@
 
 /* importer article.js de models */
 const Article = require('../models/Article');
+const multer = require('../midleware/multer-config');
 /* importer package file system de Node pour accéder aux opérations liées au système de fichiers */
 const fs = require('fs');
 const objectId = require('mongoose').Types.ObjectId;
 
 /* créer un nouvel article */
 exports.createArticle = (req, res, next) => {
-    const articleObject = JSON.parse(req.body.article);
-    delete articleObject._id;
-    const article = new Article({
-        ...articleObject,
+    
+    const newArticle = new Article({
+        userId: req.body.userId,
+        message: req.body.message, 
+        /* il faut récupérer les segments de l'URL où se trouve notre image */
         imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
     });
-    article.save()
-        .then(() => res.status(201).json({ message: 'Article créé !' }))
+    newArticle.save()
+        .then(() => res.status(201).json({ message: 'Article successfully created !' }))
         .catch(error => res.status(400).json({ error }));
 };
 
@@ -28,7 +30,7 @@ exports.modifyArticle = (req, res, next) => {
 
     Article.findByIdAndUpdate(req.params.id,
         { $set: updatedmessage }, { new: true })
-        .then(() => res.status(200).json({ message: 'Article modifié' }))
+        .then(() => res.status(200).json({ message: 'Article successfully updated' }))
         .catch(error => res.status(400).json({ error }));
 };
 
@@ -41,12 +43,12 @@ exports.deleteArticle = (req, res, next) => {
                 Article.findOne({ _id: req.params.id })
                     .then((article) => {
                         if (!article) {
-                            return res.status(404).json({ error: new Error('Objet non trouvé!') });
+                            return res.status(404).json({ error: new Error('Non existant object') });
                         } if (article.userId !== req.auth.userId) {
-                            return res.status(401).json({ error: new Error('Requête non autorisée !') });
+                            return res.status(401).json({ error: new Error('Request unahtorized !') });
                         }
                         Article.deleteOne({ _id: req.params.id })
-                            .then(() => res.status(200).json({ message: 'Article Supprimé' }))
+                            .then(() => res.status(200).json({ message: 'Article successfully deleted' }))
                             .catch(error => res.status(400).json({ error }));
                     });
             });
@@ -131,7 +133,7 @@ exports.commentArticle = (req, res, next) => {
                 }
             }
         )
-            .then(() => res.status(201).json({ message: 'Commentaire créé !' }))
+            .then(() => res.status(201).json({ message: 'Comment successfully created !' }))
             .catch(error => res.status(400).json({ error }));
     } catch (error) {
         return res.status(400).json({ error });

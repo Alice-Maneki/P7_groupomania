@@ -11,7 +11,8 @@ const userSchema = mongoose.Schema({
     firstName: {type: String, require: true},
     email: { type: String, require: true, unique: true},
     password: { type: String, require: true },
-    picture: { type: String, default: './images/random-user.jpg'}
+    picture: { type: String, require:true, default: '../images/user/random-user.jpg'},
+    role: { type: String, }
 });
 
 /* appliquer le plugin mongoose-unique-validator au schéma */

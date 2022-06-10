@@ -12,11 +12,11 @@ module.exports = (req, res,next) => {
         /* récupérer userId du token décodé */
         const userId = decodedToken.userId;
         if (req.body.userId && req.body.userId !== userId) {
-            throw 'User ID non valable';
+            throw 'Wrong User ID';
         } else {
             next();
         }
     } catch (error) {
-        res.status(401).json({ error: error || 'Requête non authentifiée !'});
+        res.status(401).json({ error: error || 'Request unauthorized'});
     }
 };

@@ -11,7 +11,7 @@ const auth = require('../midleware/auth');
 const multer = require('../midleware/multer-config');
 
 /* créer un nouvel article */
-router.post('/', auth, multer, articleCtlr.createArticle);
+router.post('/',auth, multer, articleCtlr.createArticle);
 
 /* modification d'un article existant */
 router.put('/:id', auth, multer, articleCtlr.modifyArticle);

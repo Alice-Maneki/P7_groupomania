@@ -1,3 +1,9 @@
+# frontend
+créé en utilisant React 
+
+pour lancer l'application :
+`$ npm start`
+
 # backend
 remplir les informations des variables d'environnement dans le fichier .env (base de données MongoDB Atlas)
 
@@ -17,8 +23,6 @@ http://localhost:3000/api/auth/user
 ## récuper un compte utilisateur GET
 http://localhost:3000/api/auth/user/:id
 
-
-
 ## créer un article POST
 http://localhost:3000/api/article/
 
@@ -34,5 +38,14 @@ http://localhost:3000/api/article/:id
 
 ## gestion des likes
 http://localhost:3000/api/article/:id/like
+
+## ajouter un commentaire 
+http://localhost:3000/api/article/comment/:id
+
+## modifier un commentaire
+http://localhost:3000/api/article/comment/:id
+
+## supprimer un commentaire
+http://localhost:3000/api/article/comment/:id
 
 

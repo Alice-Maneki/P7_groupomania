@@ -24,10 +24,11 @@ exports.signup = (req,res,next) => {
                 name: req.body.name,
                 firstName: req.body.firstName,
                 email: req.body.email,
-                password: hash
+                password: hash,
+                picture: '../images/user/random-user.jpg'
             });
             user.save()
-                .then(() => res.status(201).json({ message: 'Utilisateur créé '}))
+                .then(() => res.status(201).json({ message: 'User successfully created '}))
                 .catch(error => res.status(400).json({ error }));
               
         })
@@ -43,13 +44,13 @@ exports.login = (req,res,next) => {
         .then(user => {
             /* l'utilisateur n'est pas trouvé dans la base de données */
             if(!user) {
-                return res.status(401).json({ error: 'Utilisateur inconnu'});
+                return res.status(401).json({ error: 'User unknown'});
             }
             /* l'utilisateur est trouvé est on utilise bcrypt pour comparer le mot de passe enregistré et le mdp tapé */
             bcrypt.compare(req.body.password, user.password)
                 .then(valid => {
                     if(!valid){
-                        return res.status(401).json({ error: 'Mot de passe incorect !'});
+                        return res.status(401).json({ error: 'Password unknown'});
                     }
                     /* renvoie l' _id de l'utilisateur depuis la base de données et un token web JSON signé 
                     (contenant également l' _id de l'utilisateur) */
