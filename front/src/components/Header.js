@@ -2,9 +2,11 @@ import React from 'react';
 
 const Header = () => {
     return (
-        <div className="header-container">
-            <img className= "header-logo" src="../img/icons/icon-left-front.png" alt="Logo Groupomania" />
-        </div>
+        <>
+            <div className="header-container">
+                <img src="../assets/icons/icon-left-font.png" alt="Logo Groupomania" />                
+            </div>
+        </>
     );
 };
 
