@@ -4,7 +4,7 @@ import ReactDOM from 'react-dom';
 import App from './App';
 /* on importe le fichier de styles  */
 import './styles/index.scss';
-import '../node_modules/font-awesome/css/font-awesome.min.css'; 
+
 
 ReactDOM.render(
   

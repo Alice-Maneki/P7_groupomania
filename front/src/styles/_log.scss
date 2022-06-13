@@ -1,0 +1,47 @@
+.log-form{
+  font-family: $font-1;
+  width: 70%;
+  height: 500px;
+  border: 2px solid $color-2;
+  border-radius: 40px;
+  background-color: $color-2;
+  margin-left: 15%;
+  margin-bottom: 20%;
+}
+.form-container{ 
+  width: 100%;
+  ul{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+  }
+  li{
+   @include btn;
+    &:hover{
+      @include btn-hover
+    }
+  }
+  .active-btn{
+    background-image: $color-btn-click;
+  }
+}
+
+@media screen and(max-width: 780px) {
+  .log-form{
+    height: 800px;
+    width: 96%;
+    margin-left: 1.5%;
+  }
+  .form-container{
+    
+    ul{
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+     
+      li{
+        width: 70%;
+      }
+    }
+  }
+}

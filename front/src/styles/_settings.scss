@@ -1,17 +1,50 @@
    
 /* polices */
 $font-1: "Lato",serif, sans-serif;
+@font-face {
+  font-family: 'Lato';
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/lato/v23/S6u9w4BMUTPHh7USSwaPGR_p.woff2) format('woff2');
+  unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Lato';
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/lato/v23/S6u9w4BMUTPHh7USSwiPGQ.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
 
 /* couleurs de la chartre graphique de l'entreprise */
 $color-1: #FD2D01;
 $color-2: #FFD7D7;
 $color-3: #4E5166;
-$color-3-L: lighten($color-3, 12%);
+$color-3-L: lighten($color-3, 20%);
 $black: rgb(40, 40, 40);
 $white: rgb(253, 253, 253);
-$shadow: rgb(219, 218, 218);
-$color-bg: linear-gradient(to bottom right, $color-2,$color-3-L);
-$color-btn: linear-gradient(to bottom right, $color-1,$color-2);
+$shadow: rgb(167, 164, 164);
+$shadow-hover: darken($shadow, 8%);
+$color-btn: linear-gradient(to bottom right, $color-2,$color-3-L);
+$color-btn-click: linear-gradient(to bottom right, $color-1,$color-2);
+
+@mixin btn{
+  margin: 40px;
+  font-size: 1.5rem;
+  border-radius: 40px;
+  background-image: $color-btn;
+  padding: 10px;
+  text-align: center;
+  box-shadow: 3px 3px 1px $shadow;
+  width: 30%;
+}
+
+@mixin btn-hover{
+  box-shadow: 5px 5px 2px darken($color: $shadow-hover, $amount: 5%);
+}
 
 * {
   margin: 0;
@@ -21,52 +54,31 @@ $color-btn: linear-gradient(to bottom right, $color-1,$color-2);
   outline: none;
   border: none;
   text-decoration: none;
-  
 }
-:root{
+
+.body{
   font-family: $font-1;
-  /* 1REM= 10 pixels */
-  font-size: 62,5%;
-  width: 100%;
-  height: 100%;
-  
+  font-size: 1rem;
+ width: 97%;
 }
-/*
+
 a,
 a:visited {
   color: $color-3;
 }
-input,
-textarea {
+input{
   resize: none;
   border-radius: 20px;
   width: 270px;
+  height: 10px;
+  padding: 22px;
   font-family: $font-1;
   background: $white;
-}
-textarea {
   &:focus {
-    box-shadow: 0 0 4px rgba(0, 22, 44, 0.1);
+    box-shadow: 3px 3px 4px $shadow;
   }
 }
-button,
-input[type="submit"] {
-  background: $color-2;
-  color: $color-1;
-  font-family: $font-1;
-  cursor: pointer;
-  transition: 0.2s;
-  margin: 0;
-  padding: 10px 20px;
-  cursor: pointer;
-  font-size: 1.1rem;
-  border-radius: 20px 6px 20px 20px;
 
-  &:hover {
-    background: $color-1;
-    color: $color-2;
-  }
-}
 input[type="checkbox"] {
   box-shadow: none;
   width: 20px;
@@ -87,4 +99,4 @@ i {
 .success {
   color: green;
   font-weight: bold;
-} */
+} 
