@@ -1,18 +1,31 @@
+# React / Express / MongoDB
+
 # frontend
 créé en utilisant React 
 
-pour lancer l'application :
-`$ npm start`
+pour lancer l'application front :
+cd front + `$ npm start`
+
+config : 
+-créer un ficher .env contenant :
+REACT_APP_API_URL = (url du serveur)
 
 # backend
-remplir les informations des variables d'environnement dans le fichier .env (base de données MongoDB Atlas)
+config : 
+-informations de cluster dans DB/db.js
+-créer un fichier .env contenant :
+DB_USERNAME = (username MongoDB)
+DB_PASSWORD = (password MongoDB)
+DB_NAME = (name of DDB)
+CRYPTOJS_EMAIL = (secret key)
+JWT_KEY_TOKEN = (secret key)
 
 pour lancer le serveur :
-`$ npm run start`
+`$ npm start`
 
 # Routes
 ## créer un compte POST
-http://localhost:3000/api/auth/singup
+http://localhost:3000/api/auth/signup
 
 ## se connecter avec un compte existant POST
 http://localhost:3000/api/auth/login

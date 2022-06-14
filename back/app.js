@@ -5,6 +5,8 @@ const morgan = require('morgan');
 /* connexion BDD MongoDB */
 const mongoose = require('./DB/db');
 
+const cors = require('cors');
+
 /* on appelle la méthode express pour notre application */
 const app = express();
 
@@ -31,7 +33,7 @@ app.use(express.json());
 middleware général : appliqué à toutes les routes de notre serveur */
 app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', '*'); 
-    res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content, Accept, Content-Type, Authorization'); 
+    res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content, Accept, Content-Type, x-client-key, x-client-token,x-client-secret Authorization'); 
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS'); 
     next();
   });
@@ -39,6 +41,7 @@ app.use((req, res, next) => {
 
 app.use('/images', express.static(path.join(__dirname, 'images')));
 
+app.use(cors());
 app.use('/api/article', articleRoutes);
 app.use('/api/auth', userRoutes);
 

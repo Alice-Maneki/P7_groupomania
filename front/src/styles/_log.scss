@@ -1,7 +1,7 @@
 .log-form{
   font-family: $font-1;
   width: 70%;
-  height: 500px;
+  height: 100%;
   border: 2px solid $color-2;
   border-radius: 40px;
   background-color: $color-2;
@@ -28,7 +28,7 @@
 
 @media screen and(max-width: 780px) {
   .log-form{
-    height: 800px;
+    
     width: 96%;
     margin-left: 1.5%;
   }

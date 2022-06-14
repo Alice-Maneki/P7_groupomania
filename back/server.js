@@ -10,7 +10,7 @@ const normalizePort = val => {
     if (port >= 0) {return port;}
     return false;
 };
-const port = normalizePort(process.env.PORT || '3000');
+const port = normalizePort(process.env.PORT || '5000');
 
 /* on doit dire à l'appli express sur quel port elle va tourner */
 app.set('port', port);

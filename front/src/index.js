@@ -1,16 +1,17 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
 /* on importe le fichier App.js qui contient notre app */
 import App from './App';
 /* on importe le fichier de styles  */
 import './styles/index.scss';
 
+const root = createRoot(document.getElementById('root'));
 
-ReactDOM.render(
+root.render(
   
     <App />,
     /* on lie le fichier à l'id 'root' présent dans index.jtml */
-    document.getElementById('root')
+    
 );
 
 
