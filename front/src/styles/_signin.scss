@@ -4,15 +4,16 @@
     align-items: center;
    
 }
+
 input[type="submit"] {
     background: $color-2;
     color: $color-1;
     font-family: $font-1;
     cursor: pointer;
     transition: 0.2s;
-    font-size: 1.4rem;
     border-radius: 40px;
     margin: 2%;
+    
 
     &:hover {
       background-image: $color-btn-click;

@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
-import Signin from '../components/Signin';
-import Signup from '../components/Signup';
 import { UidContext } from '../components/AppContext';
+import Log from '../components/Log';
+import Header from '../components/Header';
 
 const Home = () => {
     const uid = useContext(UidContext);
@@ -12,12 +12,9 @@ const Home = () => {
             <h1> Update Page</h1>
         ) : ( 
             <div className="home-page">
-                <div className="home-signup">
-                    <Signup />
-                </div>
-                <div className="home-signin">
-                    <Signin />
-                </div>
+                <Header />
+                <Log /> 
+                
             </div>
         )}
             

@@ -17,6 +17,6 @@ module.exports = (req,res,next) => {
     if(passwordSchema.validate(req.body.password)){
         next();
     }else {
-        return res.status(400).json({ error: `Le mot de passe doit contenir ${passwordSchema.validate( req.body.password, {list: true})}` });
+        return res.status(400).json({ error: `Password must contain ${passwordSchema.validate( req.body.password, {list: true})}` });
     }
 };
