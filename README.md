@@ -4,7 +4,7 @@
 créé en utilisant React 
 
 pour lancer l'application front :
-cd front + `$ npm start`
+`cd front` + `$ npm start`
 
 config : 
 -créer un ficher .env contenant :
@@ -12,7 +12,7 @@ REACT_APP_API_URL = (url du serveur)
 
 # backend
 config : 
--informations de cluster dans DB/db.js
+-informations de cluster dans le fichier `DB/db.js`
 -créer un fichier .env contenant :
 DB_USERNAME = (username MongoDB)
 DB_PASSWORD = (password MongoDB)
@@ -21,44 +21,43 @@ CRYPTOJS_EMAIL = (secret key)
 JWT_KEY_TOKEN = (secret key)
 
 pour lancer le serveur :
-`$ npm start`
+`cd back` + `$ npm start`
 
 # Routes
 ## créer un compte POST
-http://localhost:3000/api/auth/signup
+http://localhost:5000/api/auth/signup
 
 ## se connecter avec un compte existant POST
-http://localhost:3000/api/auth/login
+http://localhost:5000/api/auth/login
 
 ## récupérer les comptes utilisateurs GET
-http://localhost:3000/api/auth/user
+http://localhost:5000/api/auth/user
 
 ## récuper un compte utilisateur GET
-http://localhost:3000/api/auth/user/:id
+http://localhost:5000/api/auth/user/:id
 
 ## créer un article POST
-http://localhost:3000/api/article/
+http://localhost:5000/api/article/
 
 ## afficher tous les articles sur l'appli GET
-http://localhost:3000/api/article/
-
+http://localhost:5000/api/article/
 
 ## modifier un article PUT
-http://localhost:3000/api/article/:id
+http://localhost:5000/api/article/:id
 
 ## supprimer un article DELETE
-http://localhost:3000/api/article/:id
+http://localhost:5000/api/article/:id
 
 ## gestion des likes
-http://localhost:3000/api/article/:id/like
+http://localhost:5000/api/article/:id/like
 
 ## ajouter un commentaire 
-http://localhost:3000/api/article/comment/:id
+http://localhost:5000/api/article/comment/:id
 
 ## modifier un commentaire
-http://localhost:3000/api/article/comment/:id
+http://localhost:5000/api/article/comment/:id
 
 ## supprimer un commentaire
-http://localhost:3000/api/article/comment/:id
+http://localhost:5000/api/article/comment/:id
 
 

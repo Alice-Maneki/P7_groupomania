@@ -1,92 +1,62 @@
-
-
+/* formulaire de connexion : doit vérifier que l'identifiant est bien présent dans la BDD */
 import React, { useState } from "react";
-import axios from "axios";
-import Trending from "../pages/Trending";
+import { useNavigate } from "react-router-dom";
 
+const Signin = ({ onLogin }) => {
+  const [emailValue, setEmailValue] = useState("");
+  const [passwordValue, setPasswordValue] = useState("");
 
-const Signin = () => {
-  const [formSubmit, setFormSubmit] = useState(false);
+  const navigate = useNavigate();
 
-  const signInErrors = (err) => {
-    let errors = { email: "", password: "" };
-
-    if (err.message.includes("email")) errors.email = "Email inconnu";
-
-    if (err.message.includes("password"))
-      errors.password = "Le mot de passe ne correspond pas";
-
-    return errors;
-  };
-
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-
-  const handleLogin = (event) => {
+  const sendData = (event) => {
     event.preventDefault();
-    const emailError = document.querySelector(".email.error");
-    const passwordError = document.querySelector(".password.error");
 
-    axios({
-      method: "post",
-      url: `${process.env.REACT_APP_API_URL}api/auth/login`,
+    const requestOptions = {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
       withCredentials: true,
-      data: {
-        email,
-        password,
-      },
-    })
-      .then(({ error }) => {
-        if ({ error }) {
-          emailError.innerHTML = "Email erroné";
-          passwordError.innerHTML = "Mot de passe inconnu";
-        } else {
-          setFormSubmit(true);
+      body: JSON.stringify({
+        email: emailValue,
+        password: passwordValue,
+      }),
+    };
+
+    fetch(`${process.env.REACT_APP_API_URL}api/auth/login`, requestOptions)
+      .then((res) => {
+        if (res.status === 200) {
+          navigate("/trending");
         }
       })
-      .catch((err) => {
-        console.log(err);
-      });
+      .catch((error) => console.log(error));
   };
 
   return (
     <>
-      {formSubmit ? (
-        <Trending />
-      ) : (
-        <form action="" onSubmit={handleLogin} className="signin-form">
-          <label htmlFor="email">Email</label>
-          <br />
-          <input
-            type="email"
-            name="email"
-            id="email"
-            onChange={(event) => setEmail(event.target.value)}
-            value={email}
-            placeholder="dupontluc@gmail.com"
-            required
-          />
-          {/* balise pour stocker les erreurs */}
-          <div className="email error">{signInErrors}</div>
-          {/* on utilise onChange pour stocker la valeur de l'input !! */}
-          <br />
+      <form onSubmit={sendData} className="signin-form">
+        <label htmlFor="email">Email</label>
+        <input
+          name="email"
+          type="email"
+          id="email"
+          placeholder="Adresse email"
+          value={emailValue}
+          required
+          onChange={(event) => setEmailValue(event.target.value)}
+        />
 
-          <label htmlFor="password">Mot de Passe</label>
-          <br />
-          <input
-            type="password"
-            name="password"
-            id="password"
-            onChange={(event) => setPassword(event.target.value)}
-            value={password}
-            autocomplete="current-password"
-            required
-          />
-          <div className="password error">{signInErrors}</div>
-          <br />
-          <input type="submit" value="Se Connecter" />
-        </form>
-      )}
+        <label htmlFor="password">Mot de Passe</label>
+        <input
+          name="password"
+          type="password"
+          id="password"
+          placeholder="Mot de Passe"
+          value={passwordValue}
+          required
+          onChange={(event) => setPasswordValue(event.target.value)}
+        />
+
+        <button type="submit">Se connecter</button>
+      </form>
     </>
   );
 };
