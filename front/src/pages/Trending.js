@@ -1,15 +1,16 @@
 /* page contenant le fil d'actualité des articles : accessible uniquement si connecté */
 import React from 'react';
-import Header from '../components/Header';
-import Thread from '../components/Thread';
+import HeaderLog from '../components/HeaderLog';
+import Articles from '../components/Articles/Articles';
+
 
 const Trending = () => {
     return (
         <>
             <div className="thread-page">
-                <Header />
+                <HeaderLog />
                 <div className="thread-articles">
-                    <Thread />
+                    <Articles />
                 </div>
             </div>
         </>

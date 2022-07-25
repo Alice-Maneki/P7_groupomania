@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 const Signin = ({ onLogin }) => {
   const [emailValue, setEmailValue] = useState("");
   const [passwordValue, setPasswordValue] = useState("");
+  const [login, setLogin] = useState(false);
 
   const navigate = useNavigate();
 
@@ -13,7 +14,7 @@ const Signin = ({ onLogin }) => {
 
     const requestOptions = {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: { "Content-Type": "application/json"},
       withCredentials: true,
       body: JSON.stringify({
         email: emailValue,
@@ -23,9 +24,17 @@ const Signin = ({ onLogin }) => {
 
     fetch(`${process.env.REACT_APP_API_URL}api/auth/login`, requestOptions)
       .then((res) => {
-        if (res.status === 200) {
-          navigate("/trending");
-        }
+        res.json().then((result) => {
+          console.warn("result", result);
+          localStorage.setItem('login', JSON.stringify({
+            token: result.token
+
+          }));
+          if (res.status === 200 || login) {
+            navigate("/trending");
+            setLogin(true)
+          }
+        })  
       })
       .catch((error) => console.log(error));
   };

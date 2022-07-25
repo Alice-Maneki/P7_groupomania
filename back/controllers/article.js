@@ -62,7 +62,7 @@ exports.deleteArticle = (req, res, next) => {
 du plus récent au plus ancien */
 exports.getAllArticle = (req, res, next) => {
     Article.find()
-        .then(articles => res.status(200).json(articles)).sort({ createdAt: -1 })
+        .then(articles => res.status(200).json(articles).sort({ createdAt: -1 }))
         .catch(error => res.status(400).json({ error }));
 };
 

@@ -40,6 +40,7 @@ $color-btn-click: linear-gradient(to bottom right, $color-1,$color-2);
   text-align: center;
   box-shadow: 3px 3px 1px $shadow;
   width: 30%;
+  cursor: pointer;
 }
 
 @mixin btn-hover{

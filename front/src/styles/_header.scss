@@ -1,4 +1,4 @@
-nav{
+header{
     height: 10rem;
     width: 100%;
     overflow: hidden;
@@ -7,14 +7,25 @@ nav{
 .header-container{
     display: flex;
     justify-content: flex-start;
-   
-    
+       
 }
+
 .header-logo{
     height: 25rem;
     position: relative;
     top: -125px;
     
+}
+
+.header-logout{
+    height: 10rem;
+    width: 10rem;
+     i {
+        color: $color-3;
+    }
+    &:hover{
+        background-color: $color-3-L;
+    }
 }
 
 @media screen and (max-width: 780px) {

@@ -2,6 +2,10 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Signin from "./Signin";
+import { userRegistered } from "../../services/toasts.user";
+
+
+
 
 const Signup = () => {
   const navigate = useNavigate();
@@ -11,6 +15,13 @@ const Signup = () => {
   const [firstNameValue, setFirstNameValue] = useState("");
   const [emailValue, setEmailValue] = useState("");
   const [passwordValue, setPasswordValue] = useState("");
+
+  const REGEX = {
+    NAME_REGEX: "^([\\p{L}]+)([\\p{L}\\- ']*)$",
+    FIRSTNAME_REGEX: "^([\\p{L}]+)([\\p{L}\\- ']*)$",
+    EMAIL_REGEX: "^[a-zA-Z0-9ôöáàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ._-]+[@]{1}[a-zA-Z0-9.-_]+[.]{1}[a-z]{2,10}$",
+    PASSWORD_REGEX: "^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{4,}$",
+  };
 
   const SendData = (event) => {
     event.preventDefault();
@@ -29,6 +40,7 @@ const Signup = () => {
     fetch(`${process.env.REACT_APP_API_URL}api/auth/signup`, requestOptions)
       .then((res) => {
         if (res.ok) {
+          userRegistered();
           navigate("/");
           setFormSubmit(true);
         }
@@ -57,7 +69,7 @@ const Signup = () => {
               placeholder="Nom"
               value={nameValue}
               required
-              pattern={"^([\\p{L}]+)([\\p{L}\\- ']*)$"}
+              pattern={REGEX.NAME_REGEX}
               onChange={(event) => setNameValue(event.target.value)}
             />
 
@@ -69,7 +81,7 @@ const Signup = () => {
               placeholder="Prénom"
               value={firstNameValue}
               required
-              pattern={"^([\\p{L}]+)([\\p{L}\\- ']*)$"}
+              pattern={REGEX.FIRSTNAME_REGEX}
               onChange={(event) => setFirstNameValue(event.target.value)}
             />
 
@@ -78,10 +90,10 @@ const Signup = () => {
               id="email"
               name="email"
               type="email"
-              aria-describedby="emailHelp"
               placeholder="Adresse email"
               value={emailValue}
               required
+              pattern={REGEX.EMAIL_REGEX}
               onChange={(event) => setEmailValue(event.target.value)}
             />
 
@@ -93,7 +105,7 @@ const Signup = () => {
               placeholder="Mot de Passe"
               value={passwordValue}
               required
-              pattern={"^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{4,}$"}
+              pattern={REGEX.PASSWORD_REGEX}
               onChange={(event) => setPasswordValue(event.target.value)}
             />
             <div className="form-password">5 caractères minimum et comprend au moins une majuscule et un chiffre !</div>
