@@ -1,9 +1,9 @@
 /* header présent sur la page Trending */
 import React from "react";
 import logo from "../assets/icons/icon-left-font.png";
-import { logout } from '../services/functions.auth';
 import { useNavigate } from "react-router-dom";
-
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { faSignOut } from "@fortawesome/free-solid-svg-icons"
 
 
 const HeaderLog = ({ onLogout }) => {
@@ -12,23 +12,24 @@ const HeaderLog = ({ onLogout }) => {
 
   const onClickLougout = (event) => {
     event.preventDefault();
-    logout();
-    onLogout();
-    navigate.push('/');
+    navigate('/');
+    localStorage.removeItem('login');
   };
 
   return (
     <>
         <header>
-          <div className="header-container">
+          <div className="header-container-log">
             <div className="header-img">
               <img className="header-logo" src={logo} alt="Logo Groupomania" />
             </div>
             <div className="header-logout">
               <a href={"##"} className="active-logout" onClick={onClickLougout}>
-              <i className="fa-solid fa-person-to-door"></i>
-              </a>  
+                <FontAwesomeIcon className="header-logout" icon={faSignOut}></FontAwesomeIcon> 
+              </a> 
+              
             </div>
+            
           </div>                 
         </header>
     </>

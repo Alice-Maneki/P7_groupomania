@@ -1,9 +1,11 @@
 /* thread des différents posts = fil d'actualité avec infinite scroll */
 import React, {Component} from "react";
 import appelApi from '../../services/api';
+import Article from "./Article";
 
 
-class ArticlesComponent extends Component {
+class Articles extends Component {
+  
   constructor(props) {
     super(props);
     this.state = {
@@ -14,23 +16,32 @@ class ArticlesComponent extends Component {
   componentDidMount(){
     appelApi.getArticles()
       .then((res) => {
-        JSON.parse(localStorage.getItem('login'))
+      
         this.setState({articles : res.data});
         console.log(res.data);
       })
       .catch((error) => console.log(error.message) );
     
   }
+
+  
   render() {
     return (
-      <div>
-        <p>
-         ceci est le fil d'articles
-        </p>
-      </div>
+      <>
+        <div className="articles_container">
+          <ul className="article_block">
+            
+              {this.state.articles.map(article => (
+                  <Article article={article} key={article._id} />
+                )) 
+                }
+                
+          </ul>
+        </div>
+      </>
     );
   }
 }
 
-export default ArticlesComponent;
+export default Articles;
 

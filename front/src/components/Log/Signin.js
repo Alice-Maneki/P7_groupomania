@@ -1,11 +1,14 @@
 /* formulaire de connexion : doit vérifier que l'identifiant est bien présent dans la BDD */
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const Signin = ({ onLogin }) => {
   const [emailValue, setEmailValue] = useState("");
   const [passwordValue, setPasswordValue] = useState("");
   const [login, setLogin] = useState(false);
+
+  
 
   const navigate = useNavigate();
 
@@ -26,13 +29,18 @@ const Signin = ({ onLogin }) => {
       .then((res) => {
         res.json().then((result) => {
           console.warn("result", result);
+          
           localStorage.setItem('login', JSON.stringify({
             token: result.token
 
           }));
           if (res.status === 200 || login) {
             navigate("/trending");
+            axios.defaults.headers.common['Authorization'] = `Bearer ${result.token}`;
             setLogin(true)
+          }
+          if ('Password unknown') {
+            
           }
         })  
       })
@@ -63,7 +71,7 @@ const Signin = ({ onLogin }) => {
           required
           onChange={(event) => setPasswordValue(event.target.value)}
         />
-
+        
         <button type="submit">Se connecter</button>
       </form>
     </>

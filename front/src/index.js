@@ -4,7 +4,7 @@ import { createRoot } from 'react-dom/client';
 import App from './App';
 /* on importe le fichier de styles  */
 import './styles/index.scss';
-
+import 'font-awesome/css/font-awesome.min.css';
 
 /* on lie le fichier à l'id 'root' présent dans index.jtml */
 const root = createRoot(document.getElementById('root'));

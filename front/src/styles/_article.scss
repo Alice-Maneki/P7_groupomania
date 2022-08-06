@@ -1,0 +1,54 @@
+
+  .article-container {
+    border: 3px solid $color-2;
+    border-radius: 40px;
+    margin: 2%;
+    width: 40%;
+    height: 10rem;
+    min-height: 10rem; 
+    padding: 1%;
+    
+  }
+
+  .article-header {
+    display: flex;
+    
+  }
+
+  .article-date {
+    font-size: 0.9rem;
+    font-style:italic;
+    color: $color-3-L;
+    margin-left: 40%;
+  }
+
+  .article-message {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin: 4%;
+    text-align: center;
+  }
+  .article-foot {
+    display: flex;
+    justify-content: space-evenly;
+
+    &-like{
+      font-size: 1.2rem;
+      color:$color-3;
+      display: flex;
+      
+      &-icon{
+        margin-right: 0.3rem;
+      }
+    }
+
+    &-comment{
+      font-size: 1.2rem;
+      color: $color-3;
+      display: flex;
+
+      &-icon {
+        margin-right: 0.3rem;
+      }
+    }
+  }

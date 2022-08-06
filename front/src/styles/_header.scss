@@ -10,6 +10,11 @@ header{
        
 }
 
+.header-container-log{
+    display: flex;
+    justify-content: space-between;
+}
+
 .header-logo{
     height: 25rem;
     position: relative;
@@ -18,15 +23,18 @@ header{
 }
 
 .header-logout{
-    height: 10rem;
-    width: 10rem;
-     i {
-        color: $color-3;
-    }
+    height: 2.2rem;
+    width: 2.2rem;
+    margin: 2%;
+    color: $color-3-L;
     &:hover{
-        background-color: $color-3-L;
+        color: $color-3;
+        height: 2rem;
+        width: 2rem;
     }
+    
 }
+
 
 @media screen and (max-width: 780px) {
    .header-container{

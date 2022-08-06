@@ -13,27 +13,27 @@ export const fetchApi = (path, page, requestOptions) => {
     }
 }
 
-const storeToken = "Bearer" + JSON.parse(localStorage.getItem('login'));
-
-const authAxios = axios.create({
-    baseURL: BASEURL,
-    headers: {
-        'Authorization': `${storeToken}`
-    }
-
-})
+   
 
 class Api {
+    /* operations du crud */
+    getUsers() {
+        return axios.get(BASEURL + "api/auth/user");
+    }
+
+    getUsersId(id) {
+        return axios.get(BASEURL + "api/auth/user" + id);
+    }
     
     getArticles() {
-        return authAxios.get(BASEURL + "api/article/");
+        return axios.get(BASEURL + "api/article/");
     }
 
     getArticleById(id){
-        return authAxios.get(BASEURL + "api/article/" + id);
+        return axios.get(BASEURL + "api/article/" + id);
     }
 
-    /* operations du crud */
+    
 }
 
 

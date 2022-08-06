@@ -1,35 +1,52 @@
 /* formulaire pour créer un nouvel article et le poster sur le fil d'actualité */
-import React, {useState} from 'react';
-import { useDispatch } from 'react-redux';
-import { createArticle } from '../../actions/article.actions';
-
+import React, { useState } from 'react';
+import { toastArticlePosted } from '../../services/toasts.article';
 
 const NewArticle = () => {
-    const [newArticle, setNewArticle] = useState({
-        userId : '',
-        message : '',
-        imageUrl : ''
-    });
-    const dispatch = useDispatch();
+   const [messageValue, setMessageValue] = useState('');
 
-    const handleSubmit = (event) => {
-        event.preventDefault();
+   const sendData = (event) => {
+    event.preventDefault();
 
-        dispatch(createArticle(newArticle));
-    }
+    const requestOptions = {
+      method: "POST",
+      headers: { "Content-Type": "application/json"},
+      withCredentials: true,
+      body: JSON.stringify({
+        message : messageValue
+      }),
+    };
+
+    fetch(`${process.env.REACT_APP_API_URL}api/article/`, requestOptions)
+      .then((res) => {
+        if (res.status === 201) {
+            toastArticlePosted();
+            setMessageValue();
+            console.log("setMessageValue", setMessageValue);
+          }
+          
+        })  
+      
+      .catch((error) => console.log(error));
+  };
    
+
     return (
         <>
-            <div className="newArticle-container">
-                <form action="" className="newArticle-form" onSubmit={handleSubmit}>
-                    <textarea name="userId" value={newArticle.userId} onChange={(event) => setNewArticle({ userId: event.target.value })} />
-                    <textarea name="message" value={newArticle.message} onChange={(event) => setNewArticle({ message: event.target.value })} />
-                    <div className="newArticle-image" >
-
-                    </div>
-                    <button className='btn-submit' type='submit'>Publier</button>
+            <div className="new-article-container">
+                <form  onSubmit={sendData} className="new-article-form">
+                    <label htmlFor="text"></label>
+                    <input
+                        id="message"
+                        name="message"
+                        type="text"
+                        placeholder="message"
+                        value={messageValue}
+                        required
+                        onChange={(event) => setMessageValue(event.target.value)}
+                    />
                 </form>
-                
+                <button type="submit">Publier</button>
             </div>
         </>
        

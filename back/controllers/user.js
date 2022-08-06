@@ -73,6 +73,8 @@ exports.login = (req,res,next) => {
         .catch(error => res.status(500).json({ error}));
 };
 
+
+
 /* gestion des utilisateurs par l'admin */
 /* récupérer tous les utilisateurs de la base de données */
 exports.getAllUsers = ((req,res,next) =>{
