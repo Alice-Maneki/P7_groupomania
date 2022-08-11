@@ -9,9 +9,7 @@ const Trending = () => {
         <>
             <div className="thread-page">
                 <HeaderLog />
-                <div className="new-article">
-                   <NewArticle />
-                </div>
+                
                 <div className="thread-articles">
                     <Articles />
                 </div>

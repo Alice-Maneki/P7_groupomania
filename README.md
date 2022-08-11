@@ -48,16 +48,16 @@ http://localhost:5000/api/article/:id
 ## supprimer un article DELETE
 http://localhost:5000/api/article/:id
 
-## gestion des likes
-http://localhost:5000/api/article/:id/like
+## gestion des likes POST
+http://localhost:5000/api/article/like
 
-## ajouter un commentaire 
+## ajouter un commentaire PATCH
 http://localhost:5000/api/article/comment/:id
 
-## modifier un commentaire
+## modifier un commentaire PATCH
 http://localhost:5000/api/article/comment/:id
 
-## supprimer un commentaire
+## supprimer un commentaire PATCH
 http://localhost:5000/api/article/comment/:id
 
 

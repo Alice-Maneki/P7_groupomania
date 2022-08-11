@@ -13,6 +13,9 @@ const Signin = ({ onLogin }) => {
   const navigate = useNavigate();
 
   const sendData = (event) => {
+    const emailError = document.querySelector(".emailError");
+    const passwordError = document.querySelector(".passwordError");
+
     event.preventDefault();
 
     const requestOptions = {
@@ -31,19 +34,30 @@ const Signin = ({ onLogin }) => {
           console.warn("result", result);
           
           localStorage.setItem('login', JSON.stringify({
-            token: result.token
-
+            token: result.token           
           }));
-          if (res.status === 200 || login) {
+
+          localStorage.setItem('userId', JSON.stringify({
+            userId: result.userId
+          }));
+
+          if(result.error === 'Password unknown'){
+            passwordError.innerHTML = "Mot de passe inconnu !!";
+          }
+          if (result.error === 'User unknown'){
+            emailError.innerHTML = "Utilisateur inconnu !!";
+          }
+          if (res.status === 200 || login){
             navigate("/trending");
+            alert("Vous étes connecté !");
             axios.defaults.headers.common['Authorization'] = `Bearer ${result.token}`;
             setLogin(true)
           }
-          if ('Password unknown') {
+          
             
-          }
-        })  
-      })
+          })
+        }) 
+      
       .catch((error) => console.log(error));
   };
 
@@ -60,6 +74,7 @@ const Signin = ({ onLogin }) => {
           required
           onChange={(event) => setEmailValue(event.target.value)}
         />
+        <div className="emailError"></div>
 
         <label htmlFor="password">Mot de Passe</label>
         <input
@@ -71,7 +86,8 @@ const Signin = ({ onLogin }) => {
           required
           onChange={(event) => setPasswordValue(event.target.value)}
         />
-        
+        <div className="passwordError"></div>
+
         <button type="submit">Se connecter</button>
       </form>
     </>

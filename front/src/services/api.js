@@ -22,7 +22,7 @@ class Api {
     }
 
     getUsersId(id) {
-        return axios.get(BASEURL + "api/auth/user" + id);
+        return axios.get(BASEURL + "api/auth/user/" + id);
     }
     
     getArticles() {
@@ -33,7 +33,33 @@ class Api {
         return axios.get(BASEURL + "api/article/" + id);
     }
 
+    postArticle(){
+        return axios.post(BASEURL + "api/articke/");
+    }
+
+    modifyArticle(id){
+        return axios.put(BASEURL + "api/article/" + id);
+    }
+
+    deleteArticle(id){
+        return axios.delete(BASEURL + "api/article/" + id);
+    }
+
+    likeArticle(id){
+        return axios.post(BASEURL + "api/article/" + id + "/like");
+    }
     
+    postComment(id){
+        return axios.patch(BASEURL + "api/article/comment/" + id);
+    }
+
+    modifyComment(id){
+        return axios.patch(BASEURL + "api/article/comment/" + id);
+    }
+
+    deleteComment(id){
+        return axios.patch(BASEURL + "api/article/comment/" + id);
+    }
 }
 
 

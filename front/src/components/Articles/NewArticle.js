@@ -5,6 +5,8 @@ import { toastArticlePosted } from '../../services/toasts.article';
 const NewArticle = () => {
    const [messageValue, setMessageValue] = useState('');
 
+   const id = JSON.parse(localStorage.getItem("userId"));
+
    const sendData = (event) => {
     event.preventDefault();
 
@@ -34,19 +36,23 @@ const NewArticle = () => {
     return (
         <>
             <div className="new-article-container">
+              <div className='new-article-userId'>
+
+              </div>
+
                 <form  onSubmit={sendData} className="new-article-form">
-                    <label htmlFor="text"></label>
-                    <input
+                    
+                    <textarea
                         id="message"
                         name="message"
                         type="text"
-                        placeholder="message"
+                        placeholder="créer un nouveau message"
                         value={messageValue}
                         required
                         onChange={(event) => setMessageValue(event.target.value)}
                     />
                 </form>
-                <button type="submit">Publier</button>
+                <button type="submit" id="btn-publier">Publier</button>
             </div>
         </>
        

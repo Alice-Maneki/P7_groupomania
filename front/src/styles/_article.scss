@@ -1,13 +1,13 @@
 
+
   .article-container {
     border: 3px solid $color-2;
     border-radius: 40px;
     margin: 2%;
     width: 40%;
-    height: 10rem;
     min-height: 10rem; 
     padding: 1%;
-    
+    object-fit: cover;
   }
 
   .article-header {
@@ -19,12 +19,12 @@
     font-size: 0.9rem;
     font-style:italic;
     color: $color-3-L;
-    margin-left: 40%;
+    margin-left: 30%;
   }
 
   .article-message {
-    font-size: 1.5rem;
-    font-weight: bold;
+    font-size: 1rem;
+    color: $color-3;
     margin: 4%;
     text-align: center;
   }
@@ -39,6 +39,18 @@
       
       &-icon{
         margin-right: 0.3rem;
+        cursor: pointer;
+        &:hover {
+          font-size: 1.3rem;
+        }
+      }
+
+      &-red {
+        color: $color-1;
+        cursor: pointer;
+        &:hover {
+          font-size: 1.3rem;
+        }
       }
     }
 
@@ -46,9 +58,38 @@
       font-size: 1.2rem;
       color: $color-3;
       display: flex;
-
+      cursor: pointer;
       &-icon {
         margin-right: 0.3rem;
       }
+    }
+  }
+
+  .update-post {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 1%;
+    
+    &-icon{
+      font-size: 1.2rem;
+      color: $color-2;
+        cursor: pointer;
+        &:hover {
+          color: $color-1;
+          font-size: 1.3rem;
+        }
+    }
+
+    &-btn {
+      width: 12%;
+      margin: 1%;
+      font-size: 0.9rem;
+      border-radius: 40px;
+      background-image: $color-btn;
+      padding: 10px;
+      text-align: center;
+      box-shadow: 3px 3px 1px $shadow;
+      cursor: pointer;
     }
   }

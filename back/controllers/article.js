@@ -14,7 +14,7 @@ exports.createArticle = (req, res, next) => {
         userId: req.body.userId,
         message: req.body.message, 
         /* il faut récupérer les segments de l'URL où se trouve notre image */
-        imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
+       /* imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}` */
     });
     newArticle.save()
         .then(() => res.status(201).json({ message: 'Article successfully created !' }))
@@ -61,8 +61,8 @@ exports.deleteArticle = (req, res, next) => {
 /* récupérer tous les articles de la BDD et les trier par ordre antéchronologique :
 du plus récent au plus ancien */
 exports.getAllArticle = (req, res, next) => {
-    Article.find()
-        .then(articles => res.status(200).json(articles).sort({ createdAt: -1 }))
+    Article.find().sort({ createdAt : -1 })
+        .then(articles => res.status(200).json(articles))
         .catch(error => res.status(400).json({ error }));
 };
 

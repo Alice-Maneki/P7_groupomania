@@ -4,7 +4,7 @@ import logo from "../assets/icons/icon-left-font.png";
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faSignOut } from "@fortawesome/free-solid-svg-icons"
-
+import { faPencil } from "@fortawesome/free-solid-svg-icons";
 
 const HeaderLog = ({ onLogout }) => {
 
@@ -13,7 +13,9 @@ const HeaderLog = ({ onLogout }) => {
   const onClickLougout = (event) => {
     event.preventDefault();
     navigate('/');
+    alert("Vous étes déconnecté!");
     localStorage.removeItem('login');
+    localStorage.removeItem('userId');
   };
 
   return (
@@ -23,14 +25,17 @@ const HeaderLog = ({ onLogout }) => {
             <div className="header-img">
               <img className="header-logo" src={logo} alt="Logo Groupomania" />
             </div>
-            <div className="header-logout">
-              <a href={"##"} className="active-logout" onClick={onClickLougout}>
-                <FontAwesomeIcon className="header-logout" icon={faSignOut}></FontAwesomeIcon> 
-              </a> 
-              
+
+
+              <div className="header-logout">
+                <a href={"##"} className="active-logout" onClick={onClickLougout}>
+                  <FontAwesomeIcon className="header-logout" icon={faSignOut}></FontAwesomeIcon> 
+                </a> 
+              </div>
+            
             </div>
             
-          </div>                 
+                          
         </header>
     </>
   );
