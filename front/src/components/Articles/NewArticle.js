@@ -1,58 +1,92 @@
 /* formulaire pour créer un nouvel article et le poster sur le fil d'actualité */
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { toastArticlePosted } from '../../services/toasts.article';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPhotoFilm } from "@fortawesome/free-solid-svg-icons";
+import appelApi from '../../services/api';
+import { isEmpty } from '../../services/utils';
+
+
 
 const NewArticle = () => {
-   const [messageValue, setMessageValue] = useState('');
+  // on utilise useState pour stocker les données
+   const [message, setMessage] = useState("");
+  const [user, setUser] = useState([]);
+  
+   const userId = JSON.parse(localStorage.getItem("userId"));
 
-   const id = JSON.parse(localStorage.getItem("userId"));
+   // on récupére les données utilisateur pour les implémenter
 
+   const userData = () => {
+    appelApi.getUserById(userId)
+      .then((res) => {
+        setUser(res.data);
+        
+      })
+      .catch((error) => {console.log(error)});
+   };
+
+   useEffect(() => {
+    userData(userId);
+  }, []);
+  
+   // on envoie les données à la BDD pour créer un nouvel article
    const sendData = (event) => {
     event.preventDefault();
-
-    const requestOptions = {
-      method: "POST",
-      headers: { "Content-Type": "application/json"},
-      withCredentials: true,
-      body: JSON.stringify({
-        message : messageValue
-      }),
-    };
-
-    fetch(`${process.env.REACT_APP_API_URL}api/article/`, requestOptions)
-      .then((res) => {
-        if (res.status === 201) {
-            toastArticlePosted();
-            setMessageValue();
-            console.log("setMessageValue", setMessageValue);
-          }
-          
-        })  
+    
+    const article = { userId, message };
+    const messageError = document.querySelector(".messageError");
+    
+    if(message === ''){
+      messageError.innerHTML = "Votre article est vide !!";
       
-      .catch((error) => console.log(error));
+    } else {
+      appelApi.newArticle(article)
+        .then((res) => {
+          if(res.ok && message === !isEmpty){
+            console.log(res);      
+            toastArticlePosted();
+            alert('nouveau message publié');
+
+          }       
+        })
+        .catch((error) => {console.log(error)});
+      console.log("postArticle", article);
+      } 
   };
+  
    
 
     return (
         <>
             <div className="new-article-container">
               <div className='new-article-userId'>
-
+                <img className="new-article-userId-pict" src={user.picture} alt="profil utilisateur" />
+                <p className='new-article-userId-name'>{user.name} {user.firstName}</p>
               </div>
 
-                <form  onSubmit={sendData} className="new-article-form">
+                <form  className="new-article-form">
                     
                     <textarea
                         id="message"
                         name="message"
                         type="text"
                         placeholder="créer un nouveau message"
-                        value={messageValue}
+                        value={message}
                         required
-                        onChange={(event) => setMessageValue(event.target.value)}
+                        onChange={(event) => setMessage(event.target.value)}
                     />
+                    
+                    <FontAwesomeIcon
+                    className='new-article-photo-icon'
+                    icon={faPhotoFilm}
+                    ></FontAwesomeIcon>
                 </form>
-                <button type="submit" id="btn-publier">Publier</button>
+                <div className="messageError"></div>
+                <button 
+                onClick={(event) => sendData(event)} 
+                className="btn-publier"
+                >Publier</button>
             </div>
         </>
        

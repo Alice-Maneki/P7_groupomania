@@ -6,6 +6,7 @@ const multer = require('../midleware/multer-config');
 /* importer package file system de Node pour accéder aux opérations liées au système de fichiers */
 const fs = require('fs');
 const objectId = require('mongoose').Types.ObjectId;
+const modelUser = require('../models/User');
 
 /* créer un nouvel article */
 exports.createArticle = (req, res, next) => {
@@ -37,22 +38,21 @@ exports.modifyArticle = (req, res, next) => {
 /* supprimer un article existant */
 exports.deleteArticle = (req, res, next) => {
     Article.findOne({ _id: req.params.id })
-        .then(article => {
+        /*.then((article) => {
             const filename = article.imageUrl.split('/images/')[1];
-            fs.unlink(`images/${filename}`, () => {
-                Article.findOne({ _id: req.params.id })
+           fs.unlink(`images/${filename}`, () => { 
+                Article.findOne({ _id: req.params.id })*/
                     .then((article) => {
-                        if (!article) {
+                        /*if (!article) {
                             return res.status(404).json({ error: new Error('Non existant object') });
                         } if (article.userId !== req.auth.userId) {
                             return res.status(401).json({ error: new Error('Request unahtorized !') });
-                        }
+                        }*/
+                    
                         Article.deleteOne({ _id: req.params.id })
                             .then(() => res.status(200).json({ message: 'Article successfully deleted' }))
                             .catch(error => res.status(400).json({ error }));
-                    });
-            });
-        })
+                    })
         .catch(error => res.status(500).json({ error }));
 
 };
@@ -67,78 +67,74 @@ exports.getAllArticle = (req, res, next) => {
 };
 
 /* gestion des likes */
-exports.likeArticle = (req, res, next) => {
+exports.likeArticle =(req, res, next) => {
     /* la requête sera envoyée par body---> raw au format JSOn avec 2 propriétés :
     { "userID":"",
        "like": 1 ou 0 ou -1} */
-    Article.findOne({ _id: req.params.id })
-        .then((article) => {
-            /* like =1 (likes +1 : aime l'article) : ajouter l'userId dans le tableau des likes */
-            /* méthode JavaScript includes() 
-            opérateurs mongoDB $inc 
-                               $push 
-                               $pull  */
-            if (!article.usersLiked.includes(req.body.userId) && req.body.like === 1) {
-                /* userId n'est pas présent dans le usersLiked de la base de données */
-                /* mise à jour de la BDD */
-                Article.updateOne(
-                    { _id: req.params.id },
-                    {
-                        $inc: { likes: 1 },
-                        $push: { usersLiked: req.body.userId }
-                    }
-                )
-                    .then(() => res.status(201).json({ message: 'Like +1!' }))
-                    .catch(error => res.status(400).json({ error }));
-            }
+    Article.findOne({_id: req.params.id})
+      .then((thing) => { 
+          /* méthode JavaScript includes() 
+          opérateurs mongoDB $inc 
+                             $push 
+                             $pull  */
+          if(!thing.usersLiked.includes(req.body.userId) && req.body.like === 1){
+          /* userId n'est pas présent dans le usersLiked de la base de données */
+          /* mise à jour de la BDD */
+              Article.updateOne(
+                  {_id: req.params.id},
+                  {
+                     
+                      $push: {usersLiked: req.body.userId}
+                  }
+              )
+                  .then(() => res.status(201).json({ message: 'Like +1!' }))
+                  .catch(error => res.status(400).json({ error }));
+          }
 
-            /* like =0 (likes =0 : pas d'avis) */
-            if (article.usersLiked.includes(req.body.userId) && req.body.like === 0) {
-                /* userId est présent dans le usersLiked de la base de données mais on veut like =0 */
-                /* mise à jour de la BDD */
-                Article.updateOne(
-                    { _id: req.params.id },
-                    {
-                        $inc: { likes: -1 },
-                        $pull: { usersLiked: req.body.userId }
-                    }
-                )
-                    .then(() => res.status(201).json({ message: 'Like -1!' }))
-                    .catch(error => res.status(400).json({ error }));
-            }
+          /* like =0 (likes =0 : pas d'avis) */
+          if(thing.usersLiked.includes(req.body.userId) && req.body.like === 0){
+              /* userId est présent dans le usersLiked de la base de données mais on veut like =0 */
+              /* mise à jour de la BDD */
+                  Article.updateOne(
+                      {_id: req.params.id},
+                      {
+                         
+                          $pull: {usersLiked: req.body.userId}
+                      }
+                  )
+                      .then(() => res.status(201).json({ message: 'Like -1!' }))
+                      .catch(error => res.status(400).json({ error }));
+              }
 
-
-        })
-        .catch(error => res.status(404).json({ error }));
-
+            
+    })
+    .catch(error => res.status(404).json({ error }));
 };
+
 
 /* gestion des commentaires : indentés sur les articles grâce à mongoDB */
 /* créer un nouveau commentaire */
 exports.commentArticle = (req, res, next) => {
-    if (!objectId) {
-        return res.status(400).json({ message: "User unknown" });
-    }
     try {
         return Article.findByIdAndUpdate(
             req.params.id,
             {
-                push: {
+                $push: {
                     comments: {
-                        commentId: req.body.commentId,
-                        commenterName: req.body.commenterName,
+                        commenterId: req.body.commenterId,
                         text: req.body.text,
-                        timestamp: new Date.now
+                        timestamp: new Date().now,
                     }
                 }
-            }
-        )
-            .then(() => res.status(201).json({ message: 'Comment successfully created !' }))
+            },
+        {new : true})
+            .then((data) => res.send(data))
             .catch(error => res.status(400).json({ error }));
     } catch (error) {
         return res.status(400).json({ error });
     }
 };
+
 
 /* modifier un commentaire */
 exports.commentEdit = (req, res, next) => {
@@ -170,10 +166,6 @@ exports.commentEdit = (req, res, next) => {
 
 /* supprimer un commentaire */
 exports.commentDelete = (req, res, next) => {
-    if (!objectId) {
-        return res.status(400).json({ message: "User unknown" });
-    }
-
     try {
         return Article.findByIdAndUpdate(
             req.params.id,

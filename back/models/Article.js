@@ -11,11 +11,10 @@ const articleSchema = mongoose.Schema(
     message: { type: String, trim: true, require: true, maxlength: 500 },
     imageUrl: { type: String },
     userId: { type: String, require: true },
-    likes: [{ NumberLikes: Number, default: 0, userId: String }],
+    usersLiked: { type: [String] },
     comments: [
       {
-        commentId: String,
-        commenterName: String,
+        commenterId: String,
         text: String,
         timestamp: Number,
         default: 0,

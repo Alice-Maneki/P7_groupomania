@@ -30,6 +30,7 @@ $shadow: rgb(167, 164, 164);
 $shadow-hover: darken($shadow, 8%);
 $color-btn: linear-gradient(to bottom right, $color-2,$color-3-L);
 $color-btn-click: linear-gradient(to bottom right, $color-1,$color-2);
+$color-bg : linear-gradient(to bottom right, $white,$color-3-L);
 
 @mixin btn{
   margin: 40px;
@@ -55,12 +56,14 @@ $color-btn-click: linear-gradient(to bottom right, $color-1,$color-2);
   outline: none;
   border: none;
   text-decoration: none;
+  
 }
 
 .body{
   font-family: $font-1;
   font-size: 1rem;
  width: 97%;
+ 
 }
 
 a,

@@ -33,13 +33,13 @@ const Signin = ({ onLogin }) => {
         res.json().then((result) => {
           console.warn("result", result);
           
-          localStorage.setItem('login', JSON.stringify({
-            token: result.token           
-          }));
+          localStorage.setItem('login', JSON.stringify(
+            result.token      
+          ));
 
-          localStorage.setItem('userId', JSON.stringify({
-            userId: result.userId
-          }));
+          localStorage.setItem('userId', JSON.stringify(
+             result.userId
+          ));
 
           if(result.error === 'Password unknown'){
             passwordError.innerHTML = "Mot de passe inconnu !!";

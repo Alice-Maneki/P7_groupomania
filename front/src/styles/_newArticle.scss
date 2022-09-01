@@ -3,20 +3,71 @@
     border-radius: 40px;
     background-color: $color-2;
     width: 50%;
-    height: 10rem;
+    height: 18rem;
     min-height: 10rem; 
     margin: 2%;
     padding: 1%;
     text-align: center;
     position: absolute;
     right: 0;
-
+    object-fit: cover;
 }
 
+.new-article-userId {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 2%;
+    &-pict {
+        width: 60px;
+        height: 60px;
+        border-radius: 30px;
+        margin-right: 4px;
+        
+    }
+    &-name{
+        font-family: $font-1;
+        font-size: 1.8rem;
+        color: $color-3;
+    }
+}
 textarea {
     border: 1px solid $color-3-L;
-    border-radius: 10px;
-    width: 70%;
+    border-radius: 15px;
+    width: 80%;
+    height: 50px;
     padding:1%;
-    
+    resize: none;
 }
+
+.btn-publier {
+    @include btn;
+    &:hover {
+       @include btn-hover;
+       background-image: $color-btn-click;
+    }
+}
+.new-article-photo-icon {
+    margin: 2%;
+    font-size: 1.2rem;
+    color: $color-3;
+    &:hover{
+        font-size: 1.3rem;
+        color: $color-3-L;
+        
+    }
+}
+
+.messageError{
+    color: $color-1;
+    font-size: 1rem;
+    margin: 1%;
+}
+
+@media screen and (max-width: 780px) {
+   .new-article-container{
+    position: relative;
+    width: 90%;
+    margin-left: 5%;
+   }
+ }

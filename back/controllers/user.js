@@ -25,7 +25,8 @@ exports.signup = (req,res,next) => {
                 firstName: req.body.firstName,
                 email: req.body.email,
                 password: hash,
-                picture: '../images/user/random-user.jpg'
+                picture: '../images/user/random-user.jpg',
+               admin: req.body.admin
             });
             user.save()
                 .then(() => res.status(201).json({ message: 'User successfully created '}))

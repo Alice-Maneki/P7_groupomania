@@ -23,9 +23,11 @@ router.delete('/:id', auth, articleCtlr.deleteArticle);
 router.get('/', auth, articleCtlr.getAllArticle);
 
 /* gestion des likes */
-router.post('/like', auth, articleCtlr.likeArticle);
+router.patch('/:id/like', auth, articleCtlr.likeArticle);
+
 
 /* routes pour les commentaire : grâce à mongoDB ils sont indentés sur les articles */
+
 router.patch('/comment/:id',auth, articleCtlr.commentArticle);
 router.patch('/comment/:id', auth, articleCtlr.commentEdit);
 router.patch('/comment/:id', auth, articleCtlr.commentDelete);

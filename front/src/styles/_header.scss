@@ -42,5 +42,13 @@ header{
     display: flex;
     justify-content: center;
    }
+
+   .header-logo {
+    height: 20rem;
+    top: -115px;
+   }
    
+   .header-logout{
+    margin: 5%;
+   }
 }

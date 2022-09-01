@@ -49,7 +49,7 @@ http://localhost:5000/api/article/:id
 http://localhost:5000/api/article/:id
 
 ## gestion des likes POST
-http://localhost:5000/api/article/like
+http://localhost:5000/api/article/:id/like
 
 ## ajouter un commentaire PATCH
 http://localhost:5000/api/article/comment/:id

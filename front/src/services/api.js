@@ -1,27 +1,18 @@
 import axios from "axios";
 
+
+
 const BASEURL = `${process.env.REACT_APP_API_URL}`;
 
-export const fetchApi = (path, page, requestOptions) => {
-    if(page) {
-        const result = fetch( axios.BASEURL + path + "?" + new URLSearchParams({ page }),
-        requestOptions);
-        return result;
-    } else {
-        const result = fetch( axios.BASEURL + path, requestOptions);
-        return result;
-    }
-}
 
-   
 
 class Api {
-    /* operations du crud */
+    
     getUsers() {
         return axios.get(BASEURL + "api/auth/user");
     }
 
-    getUsersId(id) {
+    getUserById(id) {
         return axios.get(BASEURL + "api/auth/user/" + id);
     }
     
@@ -33,35 +24,35 @@ class Api {
         return axios.get(BASEURL + "api/article/" + id);
     }
 
-    postArticle(){
-        return axios.post(BASEURL + "api/articke/");
+    newArticle(data){
+        return axios.post(BASEURL + "api/article/", data);
     }
 
-    modifyArticle(id){
-        return axios.put(BASEURL + "api/article/" + id);
+    modifyArticle(id, data){
+        return axios.put(BASEURL + "api/article/" + id, data);
     }
 
     deleteArticle(id){
         return axios.delete(BASEURL + "api/article/" + id);
     }
 
-    likeArticle(id){
-        return axios.post(BASEURL + "api/article/" + id + "/like");
-    }
-    
-    postComment(id){
-        return axios.patch(BASEURL + "api/article/comment/" + id);
+    likeArticle(id, data){
+        return axios.patch(BASEURL + "api/article/" + id + "/like", data);
     }
 
-    modifyComment(id){
-        return axios.patch(BASEURL + "api/article/comment/" + id);
+
+    newComment(id, data){
+        return axios.patch(BASEURL + "api/article/comment/" + id, data);
+    }
+
+    modifyComment(id, data){
+        return axios.patch(BASEURL + "api/article/comment/" + id, data);
     }
 
     deleteComment(id){
         return axios.patch(BASEURL + "api/article/comment/" + id);
     }
 }
-
 
 
 export default new Api();

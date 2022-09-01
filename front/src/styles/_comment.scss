@@ -1,0 +1,97 @@
+
+.comment-container{
+    margin-top: 5px;
+    font-family: $font-1;
+    display: flex;
+    justify-content: center;
+    
+  }
+
+.commenter-header{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  
+}
+.comment-user{
+    border: 1px solid $color-2;
+    border-radius: 15px;
+    background-color: $color-2;
+    width: 90%;
+    min-height: 50px;
+    padding:1%;
+    object-fit: cover;
+  margin: 1%;
+}
+
+.comment-all-users{
+    border: 1px solid $color-3-L;
+    border-radius: 15px;
+    background-color: $white;
+    width: 80%;
+    min-height: 50px;
+    padding:1%;
+    object-fit: cover;
+    margin: 1%;
+}
+
+.commenter-id{
+  display: flex;
+  
+  &-pict{
+    width: 20px;
+      height: 20px;
+      border-radius: 30px;
+      margin-right: 4px;
+  }
+  &-name{
+    font-family: $font-1;
+        font-size: 1rem;
+        color: $color-3;
+  }
+}
+.comment-date{
+  font-size: 0.7rem;
+    font-style:italic;
+    color: $color-3-L;
+    
+}
+
+.comment-text{
+  margin: 2%;
+  color: $color-3;
+}
+
+.comment-update-delete{
+  margin-left: 90%;
+  color: $color-2;
+    &:hover{
+      color: $color-1;
+    }
+}
+.comment-container-new{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+ 
+  
+}
+
+.btn-publier-comment {
+   border-radius: 40px;
+  background-image: $color-btn;
+  text-align: center;
+  width: 50%;
+  cursor: pointer;
+  padding: 1%;
+  margin: 1%;
+  &:hover{
+    background-image: $color-btn-click;
+  }
+}
+
+.commentError{
+    color: $color-1;
+    font-size: 1rem;
+    margin: 1%;
+}

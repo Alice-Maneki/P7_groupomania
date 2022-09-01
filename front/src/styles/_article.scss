@@ -1,20 +1,40 @@
 
 
   .article-container {
-    border: 3px solid $color-2;
+    font-family: $font-1;
+    border: 3px solid $color-3-L;
     border-radius: 40px;
     margin: 2%;
     width: 40%;
     min-height: 10rem; 
     padding: 1%;
     object-fit: cover;
+    background-image: $color-bg;
   }
 
   .article-header {
     display: flex;
+    justify-content: space-between;
+    align-items: center;
     
   }
 
+  .article-user-profil{
+    display: flex;
+    align-items: center;
+    
+    &-pict{
+      width: 40px;
+      height: 40px;
+      border-radius: 30px;
+      margin-right: 4px;
+    }
+    &-name{
+      font-family: $font-1;
+        font-size: 1.4rem;
+        color: $color-3;
+    }
+  }
   .article-date {
     font-size: 0.9rem;
     font-style:italic;
@@ -23,10 +43,14 @@
   }
 
   .article-message {
+    background-color: $white;
     font-size: 1rem;
     color: $color-3;
     margin: 4%;
-    text-align: center;
+    border: 1px solid $color-3-L;
+    border-radius: 20px;
+    padding:5%;
+    object-fit: cover;
   }
   .article-foot {
     display: flex;
@@ -34,10 +58,11 @@
 
     &-like{
       font-size: 1.2rem;
-      color:$color-3;
       display: flex;
       
       &-icon{
+        font-size: 1.2rem;
+      color:$color-3;
         margin-right: 0.3rem;
         cursor: pointer;
         &:hover {
@@ -46,6 +71,7 @@
       }
 
       &-red {
+        font-size: 1.2rem;
         color: $color-1;
         cursor: pointer;
         &:hover {
@@ -65,13 +91,11 @@
     }
   }
 
-  .update-post {
+  .article-foot-update {
     display: flex;
-    flex-direction: column;
-    align-items: center;
     margin: 1%;
     
-    &-icon{
+    &-modify{
       font-size: 1.2rem;
       color: $color-2;
         cursor: pointer;
@@ -80,7 +104,12 @@
           font-size: 1.3rem;
         }
     }
-
+  }
+    .update-post{
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin: 2%;
     &-btn {
       width: 12%;
       margin: 1%;
@@ -91,5 +120,27 @@
       text-align: center;
       box-shadow: 3px 3px 1px $shadow;
       cursor: pointer;
+      &:hover{
+        background-image: $color-btn-click;
+        box-shadow: 4px 4px 2px $shadow;
+      }
     }
   }
+
+  .article-foot-update-delete {
+    margin-left: 0.5rem;
+      font-size: 1.2rem;
+      color: $color-2;
+        cursor: pointer;
+        &:hover {
+          color: $color-1;
+          font-size: 1.3rem;
+        }
+    }
+  
+    @media screen and (max-width: 780px) {
+      .article-container {
+        width: 90%;
+        margin-left: 5%;
+      }
+    }
