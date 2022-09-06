@@ -49,6 +49,7 @@ const Article = ({ article }) => {
         console.log(res);
         alert("votre message a été modifié !");
         isUpdated(false);
+        
       })
       .catch((error) => {
         console.log(error);
@@ -63,6 +64,7 @@ const Article = ({ article }) => {
         console.log(res);
         toastArticleDeleted();
         alert("message supprimé !");
+        
       })
       .catch((error) => {
         console.log(error);
@@ -117,7 +119,7 @@ const Article = ({ article }) => {
 
         <div className="article-foot">
           <div>
-           {/* <LikeButton article={article} /> */}
+           <LikeButton article={article} />
           </div>
 
           <div className="article-foot-comment">

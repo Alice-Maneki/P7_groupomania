@@ -24,7 +24,7 @@ router.get('/', auth, articleCtlr.getAllArticle);
 
 /* gestion des likes */
 router.patch('/:id/like', auth, articleCtlr.likeArticle);
-
+router.patch('/:id/unlike', auth, articleCtlr.unlikeArticle);
 
 /* routes pour les commentaire : grâce à mongoDB ils sont indentés sur les articles */
 

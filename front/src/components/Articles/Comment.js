@@ -89,7 +89,7 @@ const Comment = ({ article }) => {
                         <div className="commenter-id-name">
                           {user.name} {user.firstName}
                         </div>
-                      </div>
+                      </div >
                     )}
                  
                   </>
@@ -99,7 +99,7 @@ const Comment = ({ article }) => {
                   {dateParser(article.updatedAt)}
                 </span>
               </div>
-              <div className="comment-text">{comment.text}</div>
+              <div className="comment-text">"{comment.text}"</div>
               {commenterId === comment.commenterId && (
                 <div className="comment-update">
                   <div className="comment-update-delete">

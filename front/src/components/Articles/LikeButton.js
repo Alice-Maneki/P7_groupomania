@@ -9,8 +9,8 @@ const LikeButton = ({ article }) => {
   
   const userId = JSON.parse(localStorage.getItem("userId"));
   
-  const like = () => {
-    return appelApi.likeArticle(article._id, userId)
+  const like = (likeId) => {
+    return appelApi.likeArticle(likeId, userId)
         .then((res) => {
           console.log(res);
             setliked(true);           
@@ -18,8 +18,8 @@ const LikeButton = ({ article }) => {
         .catch((error) => console.log(error.message));
   };
 
-  const unlike = () => {
-    return appelApi.likeArticle(article._id, userId)
+  const unlike = (unlikeId) => {
+    return appelApi.likeArticle(unlikeId, userId)
         .then((res) => {
           console.log(res);
             setliked(false);
@@ -28,9 +28,10 @@ const LikeButton = ({ article }) => {
         .catch((error) => console.log(error.message));
   };
 
-  useEffect(() => {
-    if(article.likes.includes(userId)) setliked(true)
-  }, []);
+   useEffect(() => {
+    like()
+    unlike()
+   }, []);
 
 
   return (
@@ -41,7 +42,7 @@ const LikeButton = ({ article }) => {
           <FontAwesomeIcon
             className="article-foot-like-icon"
             icon={faHeart}
-            onClick={() => like(setliked)}
+            onClick={() => like(article._id)}
           ></FontAwesomeIcon>         
         </>
       ) : (
@@ -50,7 +51,7 @@ const LikeButton = ({ article }) => {
         <FontAwesomeIcon
             className="article-foot-like-icon-red"
             icon={faHeart}
-            onClick={() => unlike(!setliked)}
+            onClick={() => unlike(article._id)}
           ></FontAwesomeIcon>
           
         </>

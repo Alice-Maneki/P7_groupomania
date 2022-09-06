@@ -13,6 +13,7 @@ const NewArticle = () => {
    const [message, setMessage] = useState("");
   const [user, setUser] = useState([]);
   
+
    const userId = JSON.parse(localStorage.getItem("userId"));
 
    // on récupére les données utilisateur pour les implémenter
@@ -47,7 +48,7 @@ const NewArticle = () => {
             console.log(res);      
             toastArticlePosted();
             alert('nouveau message publié');
-
+            
           }       
         })
         .catch((error) => {console.log(error)});
