@@ -12,7 +12,9 @@ const NewArticle = () => {
   // on utilise useState pour stocker les données
    const [message, setMessage] = useState("");
   const [user, setUser] = useState([]);
-  
+  const [ postPicture, setPostPicture] = useState(null);
+  const [ file, setFile ] = useState();
+  const[ showInput, setShowInput] = useState(false);
 
    const userId = JSON.parse(localStorage.getItem("userId"));
 
@@ -37,26 +39,32 @@ const NewArticle = () => {
     
     const article = { userId, message };
     const messageError = document.querySelector(".messageError");
-    
-    if(message === ''){
+    if(message === '') {
       messageError.innerHTML = "Votre article est vide !!";
       
-    } else {
+            
+          }    
+    if(message || postPicture){
       appelApi.newArticle(article)
         .then((res) => {
           if(res.ok && message === !isEmpty){
             console.log(res);      
             toastArticlePosted();
             alert('nouveau message publié');
-            
-          }       
+      
+    }    
         })
         .catch((error) => {console.log(error)});
       console.log("postArticle", article);
       } 
   };
   
-   
+   const handlePicture = (e) => {
+    //prévisualisation de l'image
+    setPostPicture(URL.createObjectURL(e.target.files[0]));
+    //envoyer l'image dans la BDD
+    setFile(e.target.files[0]);
+   };
 
     return (
         <>
@@ -78,10 +86,23 @@ const NewArticle = () => {
                         onChange={(event) => setMessage(event.target.value)}
                     />
                     
+                    <div className='add-picture'>
                     <FontAwesomeIcon
                     className='new-article-photo-icon'
                     icon={faPhotoFilm}
+                    type="file"
+                    onClick={() => setShowInput(!showInput)}
                     ></FontAwesomeIcon>
+                    {showInput && (
+                      <input
+                        className='choose-picture'
+                        type="file"
+                        name="file"
+                        accept= ".jpg, .jpeg, .png"
+                        onChange={(e) => handlePicture(e)}
+                      />
+                    )} 
+                    </div>
                 </form>
                 <div className="messageError"></div>
                 <button 

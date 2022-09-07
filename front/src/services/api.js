@@ -37,9 +37,12 @@ class Api {
     }
 
     likeArticle(id, data){
-        return axios.patch(BASEURL + "api/article/" + id + "/like", data);
+        return axios.put(BASEURL + "api/article/" + id + "/like", data);
     }
 
+    unlikeArticle(id, data){
+        return axios.put(BASEURL + "api/article/" + id + "/inlike", data);
+    }
 
     newComment(id, data){
         return axios.patch(BASEURL + "api/article/comment/" + id, data);

@@ -8,15 +8,15 @@ import Comment from "./Comment";
 import Admin from "./Admin";
 import LikeButton from "./LikeButton";
 import appelApi from "../../services/api";
-import { toastArticleDeleted } from "../../services/toasts.article";
+import { useNavigate } from "react-router-dom";
 
 const Article = ({ article }) => {
   const [showComment, setShowComment] = useState(false);
   const [isUpdated, setIsUpdated] = useState(false);
   const [message, setMessage] = useState("");
   const [users, setUsers] = useState([]);
-  
-
+  const [articles, setArticles] = useState([]);
+  const navigate = useNavigate();
   const id = JSON.parse(localStorage.getItem("userId"));
   //console.log("-----Id", id);
   //console.log("-----articleId", article.userId);
@@ -40,6 +40,21 @@ const Article = ({ article }) => {
     
   }, []);
  
+  // réinitialiser les données
+  const initData = () => {
+    
+    appelApi.getArticles()
+      .then((res) => {
+        setArticles(res.data);       
+      })
+      .catch((error) => {console.log(error)});
+  };
+
+  useEffect(() => {
+    
+    initData();
+    
+  }, []);
 
   const updateItem = () => {
     const newArticle = { message };
@@ -49,7 +64,8 @@ const Article = ({ article }) => {
         console.log(res);
         alert("votre message a été modifié !");
         isUpdated(false);
-        
+        initData();
+        navigate("/trending");
       })
       .catch((error) => {
         console.log(error);
@@ -62,9 +78,9 @@ const Article = ({ article }) => {
       .deleteArticle(deleteId)
       .then((res) => {
         console.log(res);
-        toastArticleDeleted();
-        alert("message supprimé !");
-        
+        alert("message supprimé !"); 
+        initData();
+        navigate("/trending");
       })
       .catch((error) => {
         console.log(error);

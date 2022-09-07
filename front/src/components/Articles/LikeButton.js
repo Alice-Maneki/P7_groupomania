@@ -5,12 +5,17 @@ import { faHeart } from "@fortawesome/free-solid-svg-icons";
 
 const LikeButton = ({ article }) => {
 
-  const [liked, setliked] = useState(true);
+  const [liked, setliked] = useState(false);
   
   const userId = JSON.parse(localStorage.getItem("userId"));
   
-  const like = (likeId) => {
-    return appelApi.likeArticle(likeId, userId)
+  useEffect(() => {
+    if(article.usersLiked.includes(userId)) setliked(true)
+  }, [userId, article.usersLiked, liked]);
+
+  const like = () => {
+    
+    appelApi.likeArticle(article._id, userId)
         .then((res) => {
           console.log(res);
             setliked(true);           
@@ -18,8 +23,9 @@ const LikeButton = ({ article }) => {
         .catch((error) => console.log(error.message));
   };
 
-  const unlike = (unlikeId) => {
-    return appelApi.likeArticle(unlikeId, userId)
+  const unlike = () => {
+    
+    appelApi.unlikeArticle(article._id, userId)
         .then((res) => {
           console.log(res);
             setliked(false);
@@ -28,30 +34,28 @@ const LikeButton = ({ article }) => {
         .catch((error) => console.log(error.message));
   };
 
-   useEffect(() => {
-    like()
-    unlike()
-   }, []);
+ 
 
 
   return (
     
     <div className="article-foot-like" >
-      {liked ? (
+      {liked === false &&(
         <>
           <FontAwesomeIcon
             className="article-foot-like-icon"
             icon={faHeart}
-            onClick={() => like(article._id)}
+            onClick={like}
           ></FontAwesomeIcon>         
         </>
-      ) : (
+      ) }
+      { liked &&(
       
         <>
         <FontAwesomeIcon
             className="article-foot-like-icon-red"
             icon={faHeart}
-            onClick={() => unlike(article._id)}
+            onClick={unlike}
           ></FontAwesomeIcon>
           
         </>

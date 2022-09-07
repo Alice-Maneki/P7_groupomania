@@ -67,49 +67,55 @@ exports.getAllArticle = (req, res, next) => {
 };
 
 /* gestion des likes */
+
 exports.likeArticle =(req, res, next) => {
-    /* la requête sera envoyée par body---> raw au format JSOn avec 2 propriétés :
-    { "userID":"",
-       "like": 1 ou 0 ou -1} */
-    Article.findOne({_id: req.params.id})
-      .then((thing) => { 
-          /* méthode JavaScript includes() 
-          opérateurs mongoDB $inc 
-                             $push 
-                             $pull  */
-          if(!thing.usersLiked.includes(req.body.userId) && req.body.like === 1){
-          /* userId n'est pas présent dans le usersLiked de la base de données */
-          /* mise à jour de la BDD */
-              Article.updateOne(
-                  {_id: req.params.id},
-                  {
-                     
-                      $push: {usersLiked: req.body.userId}
-                  }
-              )
-                  .then(() => res.status(201).json({ message: 'Like +1!' }))
-                  .catch(error => res.status(400).json({ error }));
-          }
-
-          /* like =0 (likes =0 : pas d'avis) */
-          if(thing.usersLiked.includes(req.body.userId) && req.body.like === 0){
-              /* userId est présent dans le usersLiked de la base de données mais on veut like =0 */
-              /* mise à jour de la BDD */
-                  Article.updateOne(
-                      {_id: req.params.id},
-                      {
-                         
-                          $pull: {usersLiked: req.body.userId}
-                      }
-                  )
-                      .then(() => res.status(201).json({ message: 'Like -1!' }))
-                      .catch(error => res.status(400).json({ error }));
-              }
-
-            
-    })
-    .catch(error => res.status(404).json({ error }));
+    try {
+        Article.findById(req.params.id)
+        /* est ce que l'utilisateur a déjà aimé l'article? */
+        .then((article) => {
+            if(article.usersLiked.includes(req.body.userID)){
+                return res.json(400).json({ msg: 'Already liked '});
+            } else {
+                Article.updateOne(
+                    {
+                        $push: { usersLiked: req.body.userId}
+        
+                    }
+                )
+                    .then(() => res.status(201).json({ message: 'Like +1!' }))
+                    .catch(error => res.status(400).json({ error }));
+            }        
+        })
+        .catch(error => res.status(400).json({ error }));
+    } catch(err) {
+        res.status(500).send('server error');
+    }
 };
+
+exports.unlikeArticle =(req, res, next) => {
+    try {
+        Article.findById(req.params.id)
+        /* est ce que l'utilisateur a déjà aimé l'article? */
+        .then((article) => {
+            if(article.usersLiked.includes(req.body.userID)){
+                Article.updateOne(
+                   
+                    {   
+                        $pull: {usersLiked: req.body.userId }
+                    }
+                )
+                    .then(() => res.status(201).json({ message: 'Like -1!' }))
+                    .catch(error => res.status(400).json({ error }));  
+            } 
+                         
+                   
+        })
+        .catch(error => res.status(400).json({ error }));
+    } catch(err) {
+        res.status(500).send('server error');
+    }
+};
+    
 
 
 /* gestion des commentaires : indentés sur les articles grâce à mongoDB */

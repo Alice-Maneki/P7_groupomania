@@ -9,7 +9,6 @@ const Articles = () => {
 
   const [articles, setArticles] = useState([]);
 
-  //const [reducerValue, forceUpdate] = useReducer(num => num + 1, 0);
 
   useEffect(() => {
     
@@ -23,7 +22,8 @@ const Articles = () => {
     appelApi.getArticles()
       .then((res) => {
         setArticles(res.data);
-        //forceUpdate()
+    
+        
       })
       .catch((error) => {console.log(error)});
   };

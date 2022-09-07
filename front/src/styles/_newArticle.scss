@@ -3,7 +3,7 @@
     border-radius: 40px;
     background-color: $color-2;
     width: 50%;
-    height: 18rem;
+    min-height: 22rem;
     min-height: 10rem; 
     margin: 2%;
     padding: 1%;
@@ -56,6 +56,17 @@ textarea {
         color: $color-3-L;
         
     }
+}
+
+.choose-picture {
+    margin: 40px;
+    font-size: 0.8rem;
+    padding: 10px;
+    text-align: center;
+    min-height: 2rem;
+    min-width: 18rem;
+    cursor: pointer;
+    object-fit: cover;
 }
 
 .messageError{
